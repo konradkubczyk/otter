@@ -1,54 +1,30 @@
-# Astro Starter Kit: Basics
+# 🦦 Otter
 
-```
-npm create astro@latest -- --template basics
-```
+This is a very simple tool for generating summary reports from CSV files containing data about time spent working on projects. It creates PDF files with predefined fields and calculates the total value of work based on customisable hourly rate. It works locally in the browser to protect users' privacy.
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## Features
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+- Simple user interface.
+- Total value of work calculation.
+- Customizable hourly rate with instant recalculation.
+- PDF report generation.
+- Private by design.
 
-![basics](https://user-images.githubusercontent.com/4677417/186188965-73453154-fdec-4d6b-9c34-cb35c248ae5b.png)
+## Usage
 
-## 🚀 Project Structure
+To use this tool on your local machine, follow these steps:
 
-Inside of your Astro project, you'll see the following folders and files:
+1. Clone the repository and navigate to the project directory.
+2. Install the dependencies by running `npm install`.
+3. Start the development server with `npm run dev`.
+4. Access the tool in your browser at the URL displayed in the terminal.
 
-```
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## How to generate a report
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+1. Click the "Choose File" button and select a CSV file containing the data you want to generate a report for.
+2. Enter the price per hour in the input field.
+3. The table with the selected fields from the CSV data will be displayed below.
+4. Scroll down to view the summary section, including the client name, report span, and price per hour.
+5. Click the "PDF" button to download the report as a PDF file.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:3000`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+> Note: The CSV file must contain the following fields: `Client`, `Project`, `Description`, `End date`, `Duration`.
