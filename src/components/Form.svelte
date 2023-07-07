@@ -16,7 +16,7 @@
     "End date": "Date",
     Duration: "Duration",
   }; // Declare displayedFields as a global variable
-  let pricePerHour = localStorage.getItem("pricePerHour") || 0;
+  let hourlyRate = localStorage.getItem("hourlyRate") || 0;
 
   function handleFileInput(event) {
     totalAmount = 0;
@@ -99,10 +99,10 @@
               Number(hours) + Number(minutes) / 60 + Number(seconds) / 3600;
 
             // Increase total amount
-            totalAmount += decimalHours * pricePerHour;
+            totalAmount += decimalHours * hourlyRate;
 
             // Round and add amount to row
-            row.push(Math.round(decimalHours * pricePerHour * 100) / 100);
+            row.push(Math.round(decimalHours * hourlyRate * 100) / 100);
           }
         });
 
@@ -113,8 +113,8 @@
     }
   }
 
-  function handlePriceInput(event) {
-    pricePerHour = event.target.value;
+  function handleHourlyRateInput(event) {
+    hourlyRate = event.target.value;
     calculateValues();
 
     // Update the table if it exists
@@ -122,8 +122,8 @@
       table = [...table];
     }
 
-    // Save the price per hour to local storage
-    localStorage.setItem("pricePerHour", pricePerHour);
+    // Save the hourly rate to local storage
+    localStorage.setItem("hourlyRate", hourlyRate);
   }
 
   function calculateValues() {
@@ -143,7 +143,7 @@
           Number(hours) + Number(minutes) / 60 + Number(seconds) / 3600;
 
         row[row.length - 1] =
-          Math.round(decimalHours * pricePerHour * 100) / 100;
+          Math.round(decimalHours * hourlyRate * 100) / 100;
       }
     });
 
@@ -160,8 +160,10 @@
     // Convert #report element to pdfmake-compatible object
     const reportObject = htmlToPdfmake(report.innerHTML);
 
-    // Create PDF document
-    pdfMake.createPdf({ content: reportObject }).download();
+    // Create PDF document with name 
+    pdfMake.createPdf({
+      content: [reportObject],
+    }).download(`${clientName} - ${reportSpan.replaceAll("/", ".")}.pdf`);
   }
 </script>
 
@@ -176,9 +178,9 @@
     <input
       type="number"
       class="input w-full max-w-xs outline outline-gray-300 focus:outline-gray-500 outline-2 outline-offset-2"
-      placeholder="Price per hour"
-      value={pricePerHour}
-      on:input={handlePriceInput}
+      placeholder="Hourly rate"
+      value={hourlyRate}
+      on:input={handleHourlyRateInput}
     />
   </form>
 </div>
@@ -197,7 +199,7 @@
         <br />
         Report span: <strong>{reportSpan}</strong>
         <br />
-        Price per hour: <strong>{pricePerHour}</strong>
+        Hourly rate: <strong>{hourlyRate}</strong>
       </p>
     </div>
 
