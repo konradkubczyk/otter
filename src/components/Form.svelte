@@ -1,8 +1,19 @@
 <script>
   import pdfMake from "pdfmake/build/pdfmake";
-  import pdfFonts from "pdfmake/build/vfs_fonts";
-  pdfMake.vfs = pdfFonts.pdfMake.vfs;
   import htmlToPdfmake from "html-to-pdfmake";
+
+  pdfMake.fonts = {
+    // download default Roboto font from cdnjs.com
+    Roboto: {
+      normal:
+        "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Regular.ttf",
+      bold: "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Medium.ttf",
+      italics:
+        "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-Italic.ttf",
+      bolditalics:
+        "https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.66/fonts/Roboto/Roboto-MediumItalic.ttf",
+    },
+  };
 
   let selectedFile;
   let fileContent;
@@ -75,7 +86,7 @@
         reportSpan = `${firstEndDate.replaceAll(
           "-",
           "/"
-        )}-${lastEndDate.replaceAll("-", "/")}`;
+        )} - ${lastEndDate.replaceAll("-", "/")}`;
 
         // Assign the filtered table data to a variable for display
         table = filteredTableData;
@@ -142,8 +153,7 @@
         const decimalHours =
           Number(hours) + Number(minutes) / 60 + Number(seconds) / 3600;
 
-        row[row.length - 1] =
-          Math.round(decimalHours * hourlyRate * 100) / 100;
+        row[row.length - 1] = Math.round(decimalHours * hourlyRate * 100) / 100;
       }
     });
 
@@ -160,10 +170,20 @@
     // Convert #report element to pdfmake-compatible object
     const reportObject = htmlToPdfmake(report.innerHTML);
 
-    // Create PDF document with name 
-    pdfMake.createPdf({
-      content: [reportObject],
-    }).download(`${clientName} - ${reportSpan.replaceAll("/", ".")}.pdf`);
+    // Add title to reportObject
+    reportObject.unshift({
+      text: "Report",
+      style: "header",
+      margin: [0, 0, 0, 10],
+      fontSize: 20,
+    });
+
+    // Create PDF document with name
+    pdfMake
+      .createPdf({
+        content: [reportObject],
+      })
+      .download(`${clientName} - ${reportSpan.replaceAll("/", ".")}.pdf`);
   }
 </script>
 
@@ -197,7 +217,7 @@
       <p>
         Client: <strong>{clientName}</strong>
         <br />
-        Report span: <strong>{reportSpan}</strong>
+        Span: <strong>{reportSpan}</strong>
         <br />
         Hourly rate: <strong>{hourlyRate}</strong>
       </p>
