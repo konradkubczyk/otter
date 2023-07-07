@@ -1,4 +1,9 @@
 <script>
+  import pdfMake from "pdfmake/build/pdfmake";
+  import pdfFonts from "pdfmake/build/vfs_fonts";
+  pdfMake.vfs = pdfFonts.pdfMake.vfs;
+  import htmlToPdfmake from "html-to-pdfmake";
+
   let selectedFile;
   let fileContent;
   let table;
@@ -147,6 +152,17 @@
       .slice(1)
       .reduce((sum, row) => sum + row[row.length - 1], 0);
   }
+
+  function generatePDF() {
+    // Get #report element
+    const report = document.getElementById("report");
+
+    // Convert #report element to pdfmake-compatible object
+    const reportObject = htmlToPdfmake(report.innerHTML);
+
+    // Create PDF document
+    pdfMake.createPdf({ content: reportObject }).download();
+  }
 </script>
 
 <div>
@@ -168,16 +184,21 @@
 </div>
 
 {#if selectedFile && table}
-  <div id="report">
-    <div class="flex items-center mt-10 mb-2 gap-5">
-      <h2 class="text-xl">Summary</h2>
-      <div class="divider flex-grow" />
-    </div>
+  <div class="flex items-center mt-10 mb-2 gap-5">
+    <h2 class="text-xl">Summary</h2>
+    <div class="divider flex-grow" />
+    <button class="btn" on:click={generatePDF}>PDF</button>
+  </div>
 
+  <div id="report">
     <div class="mb-5">
-      <p>Client: <strong>{clientName}</strong></p>
-      <p>Report span: <strong>{reportSpan}</strong></p>
-      <p>Price per hour: <strong>{pricePerHour}</strong></p>
+      <p>
+        Client: <strong>{clientName}</strong>
+        <br />
+        Report span: <strong>{reportSpan}</strong>
+        <br />
+        Price per hour: <strong>{pricePerHour}</strong>
+      </p>
     </div>
 
     <table class="border-collapse w-full">
