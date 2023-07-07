@@ -22,10 +22,10 @@
   let clientName;
   let totalAmount;
   let displayedFields = {
-    Project: "Project",
-    Description: "Description",
-    "End date": "Date",
-    Duration: "Duration",
+    Project: "Projekt",
+    Description: "Opis",
+    "End date": "Data",
+    Duration: "Czas",
   }; // Declare displayedFields as a global variable
   let hourlyRate = localStorage.getItem("hourlyRate") || 0;
 
@@ -97,7 +97,7 @@
         // Calculate amounts and insert them into the table
         table.map((row, rowIndex) => {
           if (rowIndex === 0) {
-            row.push("Value");
+            row.push("Wartość");
           } else {
             const duration =
               row[Object.keys(displayedFields).indexOf("Duration")];
@@ -172,7 +172,7 @@
 
     // Add title to reportObject
     reportObject.unshift({
-      text: "Report",
+      text: "Raport",
       style: "header",
       margin: [0, 0, 0, 10],
       fontSize: 20,
@@ -207,7 +207,7 @@
 
 {#if selectedFile && table}
   <div class="flex items-center mt-10 mb-2 gap-5">
-    <h2 class="text-xl">Summary</h2>
+    <h2 class="text-xl">Raport</h2>
     <div class="divider flex-grow" />
     <button class="btn" on:click={generatePDF}>PDF</button>
   </div>
@@ -215,11 +215,11 @@
   <div id="report">
     <div class="mb-5">
       <p>
-        Client: <strong>{clientName}</strong>
+        Klient: <strong>{clientName}</strong>
         <br />
-        Span: <strong>{reportSpan}</strong>
+        Zakres: <strong>{reportSpan}</strong>
         <br />
-        Hourly rate: <strong>{hourlyRate}</strong>
+        Stawka: <strong>{hourlyRate}</strong>
       </p>
     </div>
 
@@ -243,7 +243,7 @@
       <tfoot>
         <tr>
           <td class="px-4 py-2 border-2" colspan={table[0].length - 1}>
-            <strong>Total</strong>
+            <strong>Suma</strong>
           </td>
           <td class="px-4 py-2 border-2">
             <strong>{Math.round(totalAmount * 100) / 100}</strong>
