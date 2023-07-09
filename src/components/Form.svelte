@@ -183,7 +183,7 @@
       .createPdf({
         content: [reportObject],
       })
-      .download(`${clientName} - ${reportSpan.replaceAll("/", ".")}.pdf`);
+      .download(`${clientName} - ${reportSpan.replaceAll("/", ".").replaceAll(" ", "")}.pdf`);
   }
 </script>
 
