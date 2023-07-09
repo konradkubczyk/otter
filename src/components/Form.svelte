@@ -235,7 +235,13 @@
         {#each table.slice(1) as row}
           <tr>
             {#each row as cell, columnIndex}
-              <td class="px-4 py-2 border-2">{cell}</td>
+              <td class="px-4 py-2 border-2">
+                {#if columnIndex === row.length - 1}
+                  {parseFloat(cell).toFixed(2)}
+                {:else}
+                  {cell}
+                {/if}
+              </td>
             {/each}
           </tr>
         {/each}
@@ -246,7 +252,7 @@
             <strong>Suma</strong>
           </td>
           <td class="px-4 py-2 border-2">
-            <strong>{Math.round(totalAmount * 100) / 100}</strong>
+            <strong>{(Math.round(totalAmount * 100) / 100).toFixed(2)}</strong>
           </td>
         </tr>
       </tfoot>
