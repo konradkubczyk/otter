@@ -192,7 +192,7 @@
 </script>
 
 <div>
-  <form class="flex gap-3">
+  <form class="flex gap-5 flex-col md:flex-row">
     <input
       type="file"
       class="file-input w-full outline outline-gray-300 focus:outline-gray-500 outline-2 outline-offset-2"
@@ -201,7 +201,7 @@
     />
     <input
       type="number"
-      class="input w-full max-w-xs outline outline-gray-300 focus:outline-gray-500 outline-2 outline-offset-2"
+      class="input w-full md:max-w-xs outline outline-gray-300 focus:outline-gray-500 outline-2 outline-offset-2"
       placeholder="Hourly rate"
       value={hourlyRate}
       on:input={handleHourlyRateInput}
@@ -227,45 +227,47 @@
       </p>
     </div>
 
-    <table class="border-collapse w-full">
-      <thead>
-        <tr>
-          {#each table[0] as header}
-            <th class="px-4 py-2 border-2">{header}</th>
-          {/each}
-        </tr>
-      </thead>
-      <tbody>
-        {#each table.slice(1) as row}
+    <div class="overflow-auto">
+      <table class="border-collapse w-full">
+        <thead>
           <tr>
-            {#each row as cell, columnIndex}
-              {#if columnIndex === row.length - 1}
-                <td class="px-4 py-2 border-2" style="text-align: right;">
-                  {parseFloat(cell).toFixed(2)}&nbsp;zł
-                </td>
-              {:else}
-                <td class="px-4 py-2 border-2">
-                  {cell}
-                </td>
-              {/if}
+            {#each table[0] as header}
+              <th class="px-4 py-2 border-2">{header}</th>
             {/each}
           </tr>
-        {/each}
-      </tbody>
-      <tfoot>
-        <tr>
-          <td class="px-4 py-2 border-2" colspan={table[0].length - 1}>
-            <strong>Suma</strong>
-          </td>
-          <td class="px-4 py-2 border-2">
-            <strong
-              >{(Math.round(totalAmount * 100) / 100).toFixed(
-                2
-              )}&nbsp;zł</strong
-            >
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+        </thead>
+        <tbody>
+          {#each table.slice(1) as row}
+            <tr>
+              {#each row as cell, columnIndex}
+                {#if columnIndex === row.length - 1}
+                  <td class="px-4 py-2 border-2" style="text-align: right;">
+                    {parseFloat(cell).toFixed(2)}&nbsp;zł
+                  </td>
+                {:else}
+                  <td class="px-4 py-2 border-2">
+                    {cell}
+                  </td>
+                {/if}
+              {/each}
+            </tr>
+          {/each}
+        </tbody>
+        <tfoot>
+          <tr>
+            <td class="px-4 py-2 border-2" colspan={table[0].length - 1}>
+              <strong>Suma</strong>
+            </td>
+            <td class="px-4 py-2 border-2">
+              <strong
+                >{(Math.round(totalAmount * 100) / 100).toFixed(
+                  2
+                )}&nbsp;zł</strong
+              >
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
   </div>
 {/if}
