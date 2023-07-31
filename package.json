@@ -19,6 +19,7 @@
     "tailwindcss": "^3.3.2"
   },
   "devDependencies": {
-    "daisyui": "^3.1.10"
+    "daisyui": "^3.1.10",
+    "license-checker": "^25.0.1"
   }
 }
