@@ -1,15 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Form from '../components/Form.svelte';
+import Licenses from '../components/Licenses.svelte';
 ---
 
 <Layout title="Otter">
 
 	<main>
 		<div class="max-w-6xl mx-auto my-20 border-2 border-dashed rounded-lg p-10">
-			<h1 class="text-3xl font-bold">Otter</h1>
-			<p class="my-5">Aby rozpocząć, wybierz odpowiedni plik CSV.</p>
-			<Form client:load />
+			<Licenses client:load />
 		</div>
 	</main>
 

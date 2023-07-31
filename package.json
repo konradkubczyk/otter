@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "license-checker --json --out ./static/licenses.json && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
