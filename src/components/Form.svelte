@@ -183,7 +183,11 @@
       .createPdf({
         content: [reportObject],
       })
-      .download(`${clientName} - ${reportSpan.replaceAll("/", ".").replaceAll(" ", "")}.pdf`);
+      .download(
+        `${clientName} - ${reportSpan
+          .replaceAll("/", ".")
+          .replaceAll(" ", "")}.pdf`
+      );
   }
 </script>
 
@@ -215,11 +219,11 @@
   <div id="report">
     <div class="mb-5">
       <p>
-        Klient: <strong>{clientName}</strong>
+        Kontrahent: <strong>{clientName}</strong>
         <br />
-        Zakres: <strong>{reportSpan}</strong>
+        Okres: <strong>{reportSpan}</strong>
         <br />
-        Stawka: <strong>{hourlyRate}</strong>
+        Stawka: <strong>{hourlyRate} zł</strong>
       </p>
     </div>
 
@@ -235,13 +239,15 @@
         {#each table.slice(1) as row}
           <tr>
             {#each row as cell, columnIndex}
-              <td class="px-4 py-2 border-2">
-                {#if columnIndex === row.length - 1}
-                  {parseFloat(cell).toFixed(2)}
-                {:else}
+              {#if columnIndex === row.length - 1}
+                <td class="px-4 py-2 border-2" style="text-align: right;">
+                  {parseFloat(cell).toFixed(2)}&nbsp;zł
+                </td>
+              {:else}
+                <td class="px-4 py-2 border-2">
                   {cell}
-                {/if}
-              </td>
+                </td>
+              {/if}
             {/each}
           </tr>
         {/each}
@@ -252,7 +258,11 @@
             <strong>Suma</strong>
           </td>
           <td class="px-4 py-2 border-2">
-            <strong>{(Math.round(totalAmount * 100) / 100).toFixed(2)}</strong>
+            <strong
+              >{(Math.round(totalAmount * 100) / 100).toFixed(
+                2
+              )}&nbsp;zł</strong
+            >
           </td>
         </tr>
       </tfoot>
