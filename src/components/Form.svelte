@@ -39,8 +39,11 @@
       reader.onload = () => {
         fileContent = reader.result;
         const rows = fileContent.split("\n");
-        const tableData = rows.map((row) => row.split(","));
-
+        const tableData = rows.map((row) => {
+          const regex = /,(?=(?:(?:[^"]*"){2})*[^"]*$)/;
+          return row.split(regex);
+        });
+        
         // Remove empty rows
         tableData.forEach((row, rowIndex) => {
           if (row.length === 1 && row[0] === "") {
@@ -202,7 +205,7 @@
     <input
       type="number"
       class="input w-full md:max-w-xs outline outline-gray-300 focus:outline-gray-500 outline-2 outline-offset-2"
-      placeholder="Hourly rate"
+      placeholder="Stawka"
       value={hourlyRate}
       on:input={handleHourlyRateInput}
     />
