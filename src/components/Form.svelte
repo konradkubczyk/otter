@@ -41,9 +41,15 @@
         const rows = fileContent.split("\n");
         const tableData = rows.map((row) => {
           const regex = /,(?=(?:(?:[^"]*"){2})*[^"]*$)/;
-          return row.split(regex);
+          const cells = row.split(regex);
+          return cells.map((cell) => {
+            if (cell.startsWith('"') && cell.endsWith('"')) {
+              return cell.slice(1, -1);
+            }
+            return cell;
+          });
         });
-        
+
         // Remove empty rows
         tableData.forEach((row, rowIndex) => {
           if (row.length === 1 && row[0] === "") {
